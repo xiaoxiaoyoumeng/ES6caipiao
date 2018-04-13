@@ -7,7 +7,7 @@ class Calculate{
         const exist=this.play_list.has(play_name);
         const arr=new Array(ac1tive).fill('0');
         if (exist && play_name.at(0)==='r'){
-            count=Calculate.combine(arr,play_name.splice('')[1]);
+            count=Calculate.combine(arr,play_name.split('')[1]).length;
         }
         return count;
     }
@@ -16,7 +16,7 @@ class Calculate{
     //返回计算注数
     static combine(arr,size){
         let allResult=[];
-        (function f(arr,size,result) {
+        (function f(arr,size,result){
             let arrLen=arr.length;
             if(size>arrLen){
                 return;
@@ -24,19 +24,21 @@ class Calculate{
             if(size===arrLen){
                 allResult.push([].concat(result,arr))
             }else{
-                for (let i=0;i<arrLen;i++){
+                for(let i=0;i<arrLen;i++){
                     let newResult=[].concat(result);
                     newResult.push(arr[i]);
                     if(size===1){
                         allResult.push(newResult)
-                    }else {
+                    }else{
                         let newArr=[].concat(arr);
                         newArr.splice(0,i+1);
                         f(newArr,size-1,newResult)
                     }
                 }
             }
+
         })(arr,size,[])
+        return allResult
     }
 
     //计算奖金范围预测
